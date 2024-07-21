@@ -67,9 +67,9 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "start": "node scripts/start.js --host 0.0.0.0",
+    "start":"cross-env DANGEROUSLY_DISABLE_HOST_CHECK=true webpack-dev-server --mode development --open --hot",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js",
-    "build": "node scripts/build.js",
+    "build": "webpack --mode production",
     "test": "node scripts/test.js"
   },
   "devDependencies": {
