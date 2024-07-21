@@ -1,10 +1,17 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 require('dotenv').config();
-
 
 const app = express();
 const PORT = process.env.PORT || 8200;
+
+app.use(cors({
+  origin: 'https://everythingsi-c2e52ca97ff8.herokuapp.com', // Adjust the origin to match your frontend URL
+  credentials: true
+}));
+
+// ... Rest of your server setup
 
 
 // create connection to dd
