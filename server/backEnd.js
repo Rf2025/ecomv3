@@ -40,6 +40,20 @@ app.get('/product/items', (req, res) => {
 
 
 
+app.use(cors({
+    origin: 'https://everythingsi-c2e52ca97ff8.herokuapp.com/', 
+    credentials: true
+  }));
+
+
+
+
+
+
+
+
+
+
 
 
 // this route is used to add user information from our form to the database
