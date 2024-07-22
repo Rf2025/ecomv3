@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8200;
 
 app.use(express.json());
 
-// Trust Heroku's proxy headers
+
 app.set('trust proxy', 1);
 
 // sets build folder to be used as static 
@@ -36,16 +36,17 @@ connection.connect((err) => {
 
 // Route to fetch products from the database
 app.get('/product/items', (req, res) => {
-    connection.query('SELECT product_name, product_description, product_image, product_price, setup_type FROM products', (err, results) => {
+    connection.query('SELECT product_name, product_description, product_image, product_price,setup_type FROM products', (err, results) => {
         if (err) {
             console.error('Error fetching products', err);
-            res.status(500).json({ error: 'Failed to fetch products', details: err });
+            res.status(500).json({  'Failed to fetch products':err});
         } else {
-            console.log('PRODUCTS:', results);
+            console.log('PRODUCTS::', results);
             res.json(results);
         }
     });
 });
+
 
 // handles form submission
 app.post('/form', (req, res) => {
@@ -55,9 +56,13 @@ app.post('/form', (req, res) => {
 });
 
 // serves react appp
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.use(express.static('build'));
+
+
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 
 app.listen(PORT, () => {

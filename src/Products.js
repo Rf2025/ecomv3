@@ -7,23 +7,14 @@ function Products() {
     
 
     useEffect(() => {
-        fetch('https://everythingsi-c2e52ca97ff8.herokuapp.com/product/items')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return res.json();
-            })
+        fetch('/product/items')
+            .then(res => res.json())
             .then(data => {
                 setItems(data);
                 console.log('Fetched items:', data);
             })
-            .catch(error => {
-                console.error('Error fetching items:', error);
-                // Handle the error gracefully, e.g., set state for error message
-            });
+            .catch(error => console.error('Error fetching items:', error));
     }, []);
-    
 
 
     // this function is used to sort the products, it takes a parameter of option,low to high, high to low, and A-Z
