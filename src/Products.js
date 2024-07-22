@@ -7,7 +7,7 @@ function Products() {
     
 
     useEffect(() => {
-        fetch('/product/items')
+        fetch('https://everythingsi-c2e52ca97ff8.herokuapp.com/product/items')
             .then(res => res.json())
             .then(data => {
                 setItems(data);
