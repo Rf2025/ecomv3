@@ -1,13 +1,23 @@
 const express = require('express');
 const mysql = require('mysql2');
+const path = require('path');
 require('dotenv').config();
-
 
 const app = express();
 const PORT = process.env.PORT || 8200;
 
 
-// create connection to dd
+app.use(express.json());
+
+// Trust Heroku's proxy headers
+app.set('trust proxy', 1);
+
+// sets build folder to be used as static 
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+
+// create connection to database
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -18,49 +28,38 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
     if (err) {
-        console.error('Error connectting to database', err);
+        console.error('Error connecting to database', err);
     } else {
         console.log('Connected to database');
     }
 });
 
-
-// this route gets the products from the database, we also use this route to fetch products from the front end
+// Route to fetch products from the database
 app.get('/product/items', (req, res) => {
-    connection.query('SELECT product_name, product_description, product_image, product_price,setup_type FROM products', (err, results) => {
+    connection.query('SELECT product_name, product_description, product_image, product_price, setup_type FROM products', (err, results) => {
         if (err) {
             console.error('Error fetching products', err);
-            res.status(500).json({  'Failed to fetch products':err});
+            res.status(500).json({ error: 'Failed to fetch products', details: err });
         } else {
-            console.log('PRODUCTS::', results);
+            console.log('PRODUCTS:', results);
             res.json(results);
         }
     });
 });
 
-
-
-
-
-// this route is used to add user information from our form to the database
+// handles form submission
 app.post('/form', (req, res) => {
     const data = req.body;
-    console.log('User data::', data);
-    res.send('received user data');
+    console.log('User data:', data);
+    res.send('Received user data');
 });
 
-
-// tells express to server our static builds folder
-app.use(express.static('build'));
-
-
+// serves react appp
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-
-
-
-
