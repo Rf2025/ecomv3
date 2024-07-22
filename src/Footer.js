@@ -2,10 +2,10 @@
 
 import React from 'react';
 import footerCSS from './Footer.module.css'; 
-import facebook from '/Users/ricardofeliz/Desktop/ecomv2/src/facebook.png'
-import instagram from '/Users/ricardofeliz/Desktop/ecomv2/src/instagram.png'
-import twitter from '/Users/ricardofeliz/Desktop/ecomv2/src/twitter.jpeg'
-import logo from '/Users/ricardofeliz/Desktop/ecomv2/src/silogo.jpeg'
+import facebook from './facebook.png'
+import instagram from './instagram.png'
+import twitter from './twitter.jpeg'
+import logo from './silogo.jpeg'
 function Footer() {
   return (
     <footer>
@@ -56,13 +56,13 @@ function Footer() {
       <div className={footerCSS.socialIconsContainer}>
     
         <a href="https://wwww.facebook.com" target='_blank'  className={footerCSS.links}>
-           <img className={footerCSS.socialIcon} src={facebook} alt="facebookLogo"/>
+           <img className={footerCSS.socialIcon} rel="noreferrer" src={facebook} alt="facebookLogo"/>
         </a>
         <a href="https://www.instagram.com/" target='_blank' className={footerCSS.links}>
-           <img className={footerCSS.socialIcon} src={instagram} alt="instagramLogo"/>
+           <img className={footerCSS.socialIcon} rel="noreferrer" src={instagram} alt="instagramLogo"/>
         </a>
         <a href="https://x.com/?lang=en" target='_blank' className={footerCSS.links}>
-            <img className={footerCSS.socialIcon} src={twitter} alt="twitterLogo"/>
+            <img className={footerCSS.socialIcon} rel="noreferrer" src={twitter} alt="twitterLogo"/>
         </a>
       </div>
     </footer>
